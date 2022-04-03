@@ -43,6 +43,24 @@ export class SearchProvider {
         { chain: 'BCH', network: 'mainnet' }
       ],
     },
+    // Standard GRLC
+    {
+      regexes: [/^([a-km-zA-HJ-NP-Z1-9]{25,34})/],
+      dataIndex: 1,
+      type: 'address',
+      chainNetworks: [
+        { chain: 'GRLC', network: 'mainnet' }
+      ],
+    },
+    // bech32 GRLC Address
+    {
+      regexes: [/^(grlc1[ac-hj-np-zAC-HJ-NP-Z02-9]{11,71})/],
+      dataIndex: 1,
+      type: 'address',
+      chainNetworks: [
+        { chain: 'GRLC', network: 'mainnet' }
+      ],
+    },
     // bech32 BTC Address
     {
       regexes: [/^(bitcoin:)?(bc1[ac-hj-np-zAC-HJ-NP-Z02-9]{11,71})/],
@@ -108,11 +126,21 @@ export class SearchProvider {
         { chain: 'LTC', network: 'mainnet' }
       ],
     },
+    // Testnet GRLC Address
+    {
+      regexes: [/^([2mn][1-9A-HJ-NP-Za-km-z]{26,35})/],
+      dataIndex: 1,
+      type: 'address',
+      chainNetworks: [
+        { chain: 'GRLC', network: 'testnet' }
+      ],
+    },
     // BTC / BCH / DOGE / LTC block or tx
     {
       regexes: [/^[A-Fa-f0-9]{64}$/],
       type: 'blockOrTx',
       chainNetworks: [
+        { chain: 'GRLC', network: 'mainnet' },
         { chain: 'BTC', network: 'mainnet' },
         { chain: 'BCH', network: 'mainnet' },
         { chain: 'DOGE', network: 'mainnet' },
@@ -137,6 +165,7 @@ export class SearchProvider {
       regexes: [/^[0-9]{1,9}$/],
       type: 'block',
       chainNetworks: [
+        { chain: 'GRLC', network: 'mainnet' },
         { chain: 'BTC', network: 'mainnet' },
         { chain: 'BCH', network: 'mainnet' },
         { chain: 'DOGE', network: 'mainnet' },
@@ -228,7 +257,7 @@ export class SearchProvider {
   }
   private extractAddress(address: string): string {
     const extractedAddress = address
-      .replace(/^(bitcoincash:|bchtest:|bitcoin:)/i, '')
+      .replace(/^(bitcoincash:|bchtest:|bitcoin:|garlicoin|grlc)/i, '')
       .replace(/\?.*/, '');
     return extractedAddress || address;
   }
